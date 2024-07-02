@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     margin: 25,
     marginTop: Platform.OS === "android" ? 75 : 35,
+    flex: 1,
   },
 
   imageContainerView: {
