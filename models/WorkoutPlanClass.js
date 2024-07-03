@@ -1,4 +1,4 @@
-class WorkoutPlan {
+class WorkoutPlanClass {
   constructor(name, exercises = []) {
     this.name = name;
     this.exercises = exercises;
@@ -9,4 +9,4 @@ class WorkoutPlan {
   }
 }
 
-export default WorkoutPlan;
+export default WorkoutPlanClass;
