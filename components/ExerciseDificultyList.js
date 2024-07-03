@@ -1,25 +1,25 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Platform,
-  Text,
-  Pressable,
-  FlatList,
-} from "react-native";
+import { FlatList } from "react-native";
 import ExerciseDificultyGridTile from "./ExerciseDificultyGridTile";
 import ExerciseDificultyData from "../data/ExercisesDificultyData";
 
-function renderDificultyItem(itemData) {
-  return (
-    <ExerciseDificultyGridTile
-      type={itemData.item.type}
-      imgSource={itemData.item.imgSource}
-    />
-  );
-}
+function ExerciseDificultyList({ navigation }) {
+  //Create the list
 
-function ExerciseDificultyList() {
+  function pressHandler() {
+    console.log("Button Pressed!");
+  }
+
+  function renderDificultyItem(itemData) {
+    return (
+      <ExerciseDificultyGridTile
+        type={itemData.item.type}
+        imgSource={itemData.item.imgSource}
+        onPress={pressHandler}
+      />
+    );
+  }
+
   return (
     <FlatList
       data={ExerciseDificultyData}
