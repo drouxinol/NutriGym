@@ -12,6 +12,7 @@ import ExerciseDificultyList from "../components/ExerciseDificultyList";
 import ExerciseClass from "../models/ExerciseClass";
 import WorkoutPlanClass from "../models/WorkoutPlanClass";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { Ionicons } from "@expo/vector-icons";
 
 function renderFooter() {
   return (
@@ -23,15 +24,18 @@ function renderFooter() {
   );
 }
 
-function renderWorkoutPlanItem({ item }) {
+function renderWorkoutPlanItem({ navigation, item }) {
   return (
-    <Pressable style={styles.planItem}>
+    <Pressable
+      style={styles.planItem}
+      onPress={() => navigation.navigate("WorkoutPlanDetailed", { plan: item })}
+    >
       <Text style={styles.planText}>{item.name}</Text>
     </Pressable>
   );
 }
 
-function WorkoutFirstScreen() {
+function WorkoutFirstScreen({ navigation }) {
   // Temporary variable
   const workoutPlans = [
     new WorkoutPlanClass("Plan A", [
@@ -60,46 +64,21 @@ function WorkoutFirstScreen() {
         12
       ),
     ]),
-    new WorkoutPlanClass("Plan C", [
-      new ExerciseClass(
-        "Levantamento Terra",
-        "Exercício para costas",
-        "Costas",
-        3,
-        8
-      ),
-      new ExerciseClass(
-        "Desenvolvimento",
-        "Exercício para ombros",
-        "Ombros",
-        3,
-        12
-      ),
-    ]),
-    new WorkoutPlanClass("Plan D", [
-      new ExerciseClass(
-        "Levantamento Terra",
-        "Exercício para costas",
-        "Costas",
-        3,
-        8
-      ),
-      new ExerciseClass(
-        "Desenvolvimento",
-        "Exercício para ombros",
-        "Ombros",
-        3,
-        12
-      ),
-    ]),
   ];
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainContainer}>
-        <View>
-          <Text style={styles.text}>Exercises</Text>
+        <View style={styles.header}>
+          <Pressable
+            onPress={() => navigation.goBack()}
+            style={styles.backButton}
+          >
+            <Ionicons name="arrow-back" size={24} color="#192126" />
+          </Pressable>
+          <Text style={styles.headerTitle}>Exercises</Text>
         </View>
+
         <View style={styles.list}>
           <ExerciseDificultyList />
         </View>
@@ -107,7 +86,9 @@ function WorkoutFirstScreen() {
         <View style={styles.list}>
           <FlatList
             data={workoutPlans}
-            renderItem={renderWorkoutPlanItem}
+            renderItem={(item) =>
+              renderWorkoutPlanItem({ ...item, navigation })
+            }
             keyExtractor={(item, index) => index.toString()}
             ListFooterComponent={renderFooter}
           />
@@ -145,6 +126,16 @@ const styles = StyleSheet.create({
   planText: {
     textAlign: "center",
     fontSize: 24,
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#192126",
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
   },
 });
 

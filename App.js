@@ -1,6 +1,8 @@
-import { TouchableOpacity, StyleSheet } from "react-native";
+import React from "react";
+import { TouchableOpacity, StyleSheet, Pressable, Text } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import WorkoutFirstScreen from "./screens/WorkOutFirstScreen";
+import WorkoutPlanDetail from "./screens/PlanDetailScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
@@ -18,28 +20,27 @@ export default function App() {
             name="HomeScreen"
             component={HomeScreen}
             options={{ headerShown: false }}
-          ></Stack.Screen>
+          />
           <Stack.Screen
             name="WorkoutFirstScreen"
             component={WorkoutFirstScreen}
-            options={({ navigation }) => ({
-              headerTransparent: true,
-              title: null,
-              headerLeft: () => (
-                <TouchableOpacity
-                  onPress={() => navigation.goBack()}
-                  style={styles.backButton}
-                >
-                  <Ionicons name="arrow-back" size={24} color="black" />
-                </TouchableOpacity>
-              ),
-            })}
-          ></Stack.Screen>
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="WorkoutPlanDetailed"
+            component={WorkoutPlanDetail}
+            options={{
+              headerShown: false,
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>
   );
 }
+
 const styles = StyleSheet.create({
   backButton: {
     marginLeft: 10,

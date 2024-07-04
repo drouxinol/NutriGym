@@ -1,30 +1,58 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 
 function ExerciseItem({ exercise }) {
-  console.log(exercise);
   return (
-    <View style={styles.container}>
-      <Text style={styles.name}>{exercise.name}</Text>
-      <Text>{exercise.description}</Text>
-      <Text>{`Muscle Group: ${exercise.muscleGroup}`}</Text>
-      <Text>{`Set: ${exercise.sets}, Reps: ${exercise.reps}`}</Text>
-    </View>
+    <Pressable onPress={() => console.log("Button Clicked")}>
+      <View style={styles.container}>
+        <View style={styles.imagePlaceholder} />
+        <View style={styles.textContainer}>
+          <Text style={styles.name}>{exercise.name}</Text>
+          <View style={styles.setsRepsContainer}>
+            <Text style={styles.setsRepsText}>{` ${exercise.sets}/50`}</Text>
+            <Text style={styles.setsRepsText}>{` ${exercise.sets}/50`}</Text>
+          </View>
+          <View style={styles.setsRepsContainer}>
+            <Text style={styles.setsRepsText}>{` ${exercise.sets}/50`}</Text>
+            <Text style={styles.setsRepsText}>{` ${exercise.sets}/50`}</Text>
+          </View>
+        </View>
+      </View>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
-    marginVertical: 5,
-    backgroundColor: "#f8f8f8",
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 5,
+    flexDirection: "row",
+    padding: 15,
+    marginVertical: 10,
+    backgroundColor: "#384046",
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  imagePlaceholder: {
+    width: 60,
+    height: 60,
+    backgroundColor: "black",
+    borderRadius: 10,
+  },
+  textContainer: {
+    flex: 1,
+    marginLeft: 15,
   },
   name: {
     fontSize: 18,
     fontWeight: "bold",
+    color: "#FFF",
+  },
+  setsRepsContainer: {
+    flexDirection: "row",
+    marginTop: 8,
+  },
+  setsRepsText: {
+    color: "#DDD",
+    marginRight: 10,
   },
 });
 
