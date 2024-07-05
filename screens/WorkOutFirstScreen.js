@@ -70,10 +70,7 @@ function WorkoutFirstScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       <View style={styles.mainContainer}>
         <View style={styles.header}>
-          <Pressable
-            onPress={() => navigation.goBack()}
-            style={styles.backButton}
-          >
+          <Pressable onPress={() => navigation.goBack()}>
             <Ionicons name="arrow-back" size={24} color="#192126" />
           </Pressable>
           <Text style={styles.headerTitle}>Exercises</Text>

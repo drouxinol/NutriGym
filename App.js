@@ -5,6 +5,7 @@ import WorkoutFirstScreen from "./screens/WorkOutFirstScreen";
 import WorkoutPlanDetail from "./screens/PlanDetailScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import ProfileScreen from "./screens/ProfileScreen";
 import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -31,6 +32,13 @@ export default function App() {
           <Stack.Screen
             name="WorkoutPlanDetailed"
             component={WorkoutPlanDetail}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="ProfileScreen"
+            component={ProfileScreen}
             options={{
               headerShown: false,
             }}

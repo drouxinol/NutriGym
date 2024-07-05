@@ -15,14 +15,14 @@ function HomeScreen({ navigation }) {
   function handlePressWorkout() {
     navigation.navigate("WorkoutFirstScreen");
   }
-  function handlePressUserButton() {
-    console.log("User Button Pressed!");
+  function handlePressProfileButton() {
+    navigation.navigate("ProfileScreen");
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainContainer}>
-        <HomeHeader onPressUserButton={handlePressUserButton} />
+        <HomeHeader onPressUserButton={handlePressProfileButton} />
         <Pressable onPress={handlePressWorkout}>
           <View style={styles.imageContainerView}>
             <HomeImageComponent
