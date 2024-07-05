@@ -6,7 +6,7 @@ import {
   Platform,
 } from "react-native";
 import HomeImageComponent from "../components/HomeImageComponent";
-import HomeHeader from "../components/HomeHeader";
+import HomeHeader from "../components/HomeHeaderComponent";
 
 function HomeScreen({ navigation }) {
   function handlePressNutrition() {
