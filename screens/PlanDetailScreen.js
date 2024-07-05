@@ -13,6 +13,7 @@ import ExerciseItem from "../components/ExerciseItemComponent";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 function renderExerciseItem({ item }) {
   return <ExerciseItem exercise={item} />;
@@ -51,8 +52,11 @@ function WorkoutPlanDetail({ route, navigation }) {
               There is no instant way to a healthy life
             </Text>
           </View>
-          <View>
+          <View style={styles.secundaryContainer}>
             <Text style={styles.exercisesText}>Exercises</Text>
+            <Pressable onPress={() => console.log("Button Pressed!")}>
+              <AntDesign name="plus" size={24} color="white" />
+            </Pressable>
           </View>
           <View style={styles.list}>
             <FlatList
@@ -120,6 +124,11 @@ const styles = StyleSheet.create({
     color: "white",
     marginTop: 50,
     fontWeight: "bold",
+  },
+  secundaryContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "baseline",
   },
 });
 

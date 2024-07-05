@@ -15,7 +15,7 @@ import WeightGraph from "../components/WeightGraphComponent";
 
 function ProfileScreen({ route, navigation }) {
   const [data, setData] = useState({
-    labels: ["January"],
+    labels: ["Jul 5"],
     datasets: [
       {
         data: [20],
@@ -26,15 +26,6 @@ function ProfileScreen({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [weight, setWeight] = useState("");
-
-  function setWeightHandler(enteredText) {
-    setWeight(enteredText);
-  }
-
-  function addWeightHandler() {
-    addWeightEntry(weight);
-    setWeight("");
-  }
 
   function addWeightEntry(number) {
     const currentDate = new Date().toLocaleDateString("en-US", {

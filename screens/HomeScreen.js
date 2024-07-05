@@ -10,7 +10,7 @@ import HomeHeader from "../components/HomeHeaderComponent";
 
 function HomeScreen({ navigation }) {
   function handlePressNutrition() {
-    console.log("Nutrition Button Pressed!");
+    navigation.navigate("NutritionScreen");
   }
   function handlePressWorkout() {
     navigation.navigate("WorkoutFirstScreen");
