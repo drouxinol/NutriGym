@@ -6,7 +6,6 @@ import {
   Text,
   Modal,
   TextInput,
-  TouchableOpacity,
   Platform,
   Pressable,
 } from "react-native";

@@ -9,6 +9,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import { StatusBar } from "expo-status-bar";
 import NutritionScreen from "./screens/NutritionScreen";
 import SettingsScreen from "./screens/SettingsScreen";
+import ExerciseDetailScreen from "./screens/ExerciseDetailScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -54,6 +55,13 @@ export default function App() {
           <Stack.Screen
             name="SettingsScreen"
             component={SettingsScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="ExerciseDetailScreen"
+            component={ExerciseDetailScreen}
             options={{
               headerShown: false,
             }}
