@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ProfileScreen from "./screens/ProfileScreen";
 import { StatusBar } from "expo-status-bar";
 import NutritionScreen from "./screens/NutritionScreen";
+import SettingsScreen from "./screens/SettingsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,13 @@ export default function App() {
           <Stack.Screen
             name="NutritionScreen"
             component={NutritionScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="SettingsScreen"
+            component={SettingsScreen}
             options={{
               headerShown: false,
             }}

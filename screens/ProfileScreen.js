@@ -26,6 +26,9 @@ function ProfileScreen({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [weight, setWeight] = useState("");
+  const [username, setUsername] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [height, setHeight] = useState("");
 
   function addWeightEntry(number) {
     const currentDate = new Date().toLocaleDateString("en-US", {
@@ -68,7 +71,7 @@ function ProfileScreen({ route, navigation }) {
             </View>
           </View>
           <Pressable
-            onPress={() => console.log("Button Pressed")}
+            onPress={() => navigation.navigate("SettingsScreen")}
             style={styles.settingsButton}
           >
             <Ionicons name="settings" size={24} color="#192126" />
@@ -97,6 +100,7 @@ function ProfileScreen({ route, navigation }) {
         </View>
 
         <Modal
+          animationType="slide"
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
@@ -134,6 +138,64 @@ function ProfileScreen({ route, navigation }) {
                   }}
                 >
                   <Text style={styles.buttonText}>Add</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </Modal>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(false);
+          }}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>User Settings</Text>
+              <TextInput
+                style={styles.modalInput}
+                placeholder="Username"
+                value={username}
+                onChangeText={(text) => setUsername(text)}
+              />
+              <TextInput
+                style={styles.modalInput}
+                placeholder="Full Name"
+                value={fullName}
+                onChangeText={(text) => setFullName(text)}
+              />
+              <TextInput
+                style={styles.modalInput}
+                placeholder="Height"
+                value={height}
+                onChangeText={(text) => setHeight(text)}
+              />
+              <TextInput
+                style={styles.modalInput}
+                placeholder="Weight"
+                keyboardType="numeric"
+                value={weight}
+                onChangeText={(text) => setWeight(text)}
+              />
+              <View style={styles.modalButtons}>
+                <Pressable
+                  style={[styles.modalButton, styles.cancelButton]}
+                  onPress={() => {
+                    setModalVisible(false);
+                  }}
+                >
+                  <Text style={styles.buttonText}>Cancel</Text>
+                </Pressable>
+                <Pressable
+                  style={[styles.modalButton, styles.addButtonModal]}
+                  onPress={() => {
+                    setModalVisible(false);
+                    // Optionally, save the updated settings
+                  }}
+                >
+                  <Text style={styles.buttonText}>Save</Text>
                 </Pressable>
               </View>
             </View>
@@ -289,6 +351,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
+  },
+  backButton: {
+    marginRight: 10,
   },
 });
 

@@ -71,7 +71,12 @@ function WorkoutFirstScreen({ navigation }) {
       <View style={styles.mainContainer}>
         <View style={styles.header}>
           <Pressable onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back" size={24} color="#192126" />
+            <Ionicons
+              name="arrow-back"
+              size={24}
+              color="#192126"
+              style={styles.backButton}
+            />
           </Pressable>
           <Text style={styles.headerTitle}>Exercises</Text>
         </View>
@@ -128,6 +133,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "#192126",
+  },
+  backButton: {
+    marginRight: 10,
   },
   header: {
     flexDirection: "row",
