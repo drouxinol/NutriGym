@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, StyleSheet, Pressable, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import WorkoutFirstScreen from "./screens/WorkOutFirstScreen";
 import WorkoutPlanDetail from "./screens/PlanDetailScreen";
@@ -10,10 +10,23 @@ import { StatusBar } from "expo-status-bar";
 import NutritionScreen from "./screens/NutritionScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import ExerciseDetailScreen from "./screens/ExerciseDetailScreen";
+import LoadingScreen from "./screens/LoadingScreen";
+import { useState, useEffect } from "react";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    // Simulando um carregamento assíncrono (por exemplo, carregamento de dados)
+    setTimeout(() => {
+      setIsLoading(false); // Marcando como carregado após 2 segundos (simulação)
+    }, 5000);
+  }, []);
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <>
       <StatusBar style="dark" />

@@ -8,6 +8,7 @@ import {
   TextInput,
   Platform,
   Pressable,
+  KeyboardAvoidingView,
 } from "react-native";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import PieChart from "react-native-pie-chart";
