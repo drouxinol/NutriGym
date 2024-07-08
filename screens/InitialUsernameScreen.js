@@ -9,6 +9,7 @@ import {
   Pressable,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Ionicons } from "@expo/vector-icons";
 
 const UsernameScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
@@ -24,12 +25,21 @@ const UsernameScreen = ({ navigation }) => {
 
     saveUsername();
 
-    navigation.navigate("HeightScreen");
+    navigation.navigate("ConfirmationScreen");
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainContainer}>
+        <View style={styles.header}>
+          <Pressable
+            onPress={() => navigation.goBack()}
+            style={styles.backButton}
+          >
+            <Ionicons name="arrow-back" size={24} color="black" />
+          </Pressable>
+          <Text style={styles.headerTitle}>Home</Text>
+        </View>
         <View style={styles.content}>
           <Text style={styles.title}>Choose a username</Text>
           <TextInput
@@ -56,6 +66,14 @@ const styles = StyleSheet.create({
     margin: 25,
     marginTop: Platform.OS === "android" ? 75 : 15,
     flex: 1,
+  },
+  backButton: {
+    marginRight: 10,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
   },
   content: {
     flex: 1,
@@ -87,6 +105,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#192126",
   },
 });
 

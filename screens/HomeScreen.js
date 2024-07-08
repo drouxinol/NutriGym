@@ -53,7 +53,7 @@ function HomeScreen({ navigation }) {
   }
 
   function handlePressNutrition() {
-    navigation.navigate("NutritionScreen");
+    Alert.alert("Brevemente Disponível!");
   }
 
   function handlePressWorkout() {
@@ -61,7 +61,7 @@ function HomeScreen({ navigation }) {
   }
 
   function handlePressProfileButton() {
-    navigation.navigate("ProfileScreen");
+    navigation.navigate("UsernameScreen");
   }
 
   return (
