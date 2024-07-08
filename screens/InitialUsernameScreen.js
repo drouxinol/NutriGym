@@ -8,15 +8,22 @@ import {
   Platform,
   Pressable,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const UsernameScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
 
   const handleContinue = () => {
-    // Aqui você pode salvar o username em AsyncStorage ou no estado global, se necessário
+    const saveUsername = async () => {
+      try {
+        await AsyncStorage.setItem("@UserSettings_username", username);
+      } catch (error) {
+        console.error("Error saving username into AsyncStorage:", error);
+      }
+    };
 
-    // Navega para a próxima tela
+    saveUsername();
+
     navigation.navigate("HeightScreen");
   };
 

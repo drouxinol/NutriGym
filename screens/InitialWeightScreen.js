@@ -9,14 +9,21 @@ import {
   Pressable,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const WeightScreen = ({ navigation }) => {
   const [weight, setWeight] = useState("");
 
   const handleContinue = () => {
-    // Aqui você pode salvar o peso em AsyncStorage ou no estado global, se necessário
+    const saveWeight = async () => {
+      try {
+        await AsyncStorage.setItem("@UserSettings_weight", weight);
+      } catch (error) {
+        console.error("Error saving weight into AsyncStorage:", error);
+      }
+    };
 
-    // Navega para a próxima tela
+    saveWeight();
     navigation.navigate("GenderScreen");
   };
 

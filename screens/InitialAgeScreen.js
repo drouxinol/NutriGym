@@ -9,14 +9,21 @@ import {
   Pressable,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AgeScreen = ({ navigation }) => {
   const [age, setAge] = useState("");
 
   const handleContinue = () => {
-    // Aqui você pode salvar a idade em AsyncStorage ou no estado global, se necessário
+    const saveAge = async () => {
+      try {
+        await AsyncStorage.setItem("@UserSettings_age", age);
+      } catch (error) {
+        console.error("Error saving age into AsyncStorage:", error);
+      }
+    };
 
-    // Navega para a próxima tela
+    saveAge();
     navigation.navigate("WeightScreen");
   };
 

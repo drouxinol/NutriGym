@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import {
   StyleSheet,
   SafeAreaView,
   View,
   Pressable,
   Platform,
+  Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 import LoadingScreen from "../screens/LoadingScreen";
 import HomeImageComponent from "../components/HomeImageComponent";
 import HomeHeader from "../components/HomeHeaderComponent";
@@ -17,26 +19,30 @@ function HomeScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [showInitialInfo, setShowInitialInfo] = useState(false);
 
-  useEffect(() => {
-    const fetchUsername = async () => {
-      try {
-        const storedUsername = await AsyncStorage.getItem(
-          "@UserSettings_username"
-        );
-        if (storedUsername !== null) {
-          setUsername(storedUsername);
-        } else {
-          setShowInitialInfo(true); // Mostra a tela inicial se o nome de usuário não estiver armazenado
-        }
-      } catch (error) {
-        console.error("Error retrieving username from AsyncStorage:", error);
-      } finally {
-        setIsLoading(false);
+  const fetchUsername = useCallback(async () => {
+    try {
+      const storedUsername = await AsyncStorage.getItem(
+        "@UserSettings_username"
+      );
+      if (storedUsername !== null) {
+        setUsername(storedUsername);
+        setShowInitialInfo(false); // Nome de usuário encontrado, não mostrar tela inicial
+      } else {
+        setShowInitialInfo(true); // Mostrar a tela inicial se o nome de usuário não estiver armazenado
       }
-    };
-
-    fetchUsername();
+    } catch (error) {
+      console.error("Error retrieving username from AsyncStorage:", error);
+      Alert.alert("Error", "Failed to retrieve username.");
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchUsername();
+    }, [fetchUsername])
+  );
 
   if (showInitialInfo) {
     return <UsernameScreen navigation={navigation} />;

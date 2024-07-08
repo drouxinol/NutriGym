@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   StyleSheet,
   View,
@@ -8,46 +8,61 @@ import {
   Pressable,
   Modal,
   TextInput,
+  Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import InfoCard from "../components/InfoCardComponent";
-import WeightGraph from "../components/WeightGraphComponent";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 
-function ProfileScreen({ route, navigation }) {
-  const [data, setData] = useState({
-    labels: ["Jul 5"],
-    datasets: [
-      {
-        data: [20],
-      },
-    ],
-  });
-
+function ProfileScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [weight, setWeight] = useState("");
   const [username, setUsername] = useState("");
-  const [fullName, setFullName] = useState("");
   const [height, setHeight] = useState("");
+  const [age, setAge] = useState(null);
 
-  function addWeightEntry(number) {
-    const currentDate = new Date().toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-    });
+  const fetchInfo = useCallback(async () => {
+    try {
+      const storedWeight = await AsyncStorage.getItem("@UserSettings_weight");
+      const storedAge = await AsyncStorage.getItem("@UserSettings_age");
+      const storedHeight = await AsyncStorage.getItem("@UserSettings_height");
+      const storedUsername = await AsyncStorage.getItem(
+        "@UserSettings_username"
+      );
+      if (storedWeight !== null) {
+        setWeight(storedWeight);
+      }
+      if (storedAge !== null) {
+        setAge(storedAge);
+      }
+      if (storedHeight !== null) {
+        setHeight(storedHeight);
+      }
+      if (storedUsername !== null) {
+        setUsername(storedUsername);
+      }
+    } catch (error) {
+      console.error("Error retrieving information from AsyncStorage:", error);
+    }
+  }, []);
 
-    setData((prevData) => ({
-      labels: [...prevData.labels, currentDate],
-      datasets: [
-        {
-          data: [...prevData.datasets[0].data, parseFloat(number)],
-        },
-      ],
-    }));
+  useFocusEffect(
+    useCallback(() => {
+      fetchInfo();
+    }, [fetchInfo])
+  );
 
-    // Fechar o modal após adicionar o peso
-    setModalVisible(false);
-  }
+  const saveWeight = async (newWeight) => {
+    try {
+      await AsyncStorage.setItem("@UserSettings_weight", newWeight);
+      setWeight(newWeight);
+      setModalVisible(false);
+    } catch (error) {
+      console.error("Error saving weight to AsyncStorage:", error);
+      Alert.alert("Error", "Failed to save weight.");
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -63,9 +78,9 @@ function ProfileScreen({ route, navigation }) {
         </View>
         <View style={styles.topHeader}>
           <View>
-            <Text style={styles.headerNameText}>Daniel Rouxinol</Text>
+            <Text style={styles.headerNameText}>{username}</Text>
             <View style={styles.row}>
-              <Text style={styles.headerSubText}>23 years</Text>
+              <Text style={styles.headerSubText}>{age} years</Text>
               <View style={styles.separator} />
               <Text style={styles.headerSubText}>Male</Text>
             </View>
@@ -79,18 +94,14 @@ function ProfileScreen({ route, navigation }) {
         </View>
         <View style={{ borderWidth: 1, marginTop: 10 }} />
         <View style={styles.contentContainer}>
-          <InfoCard title="Weight" value={weight} unit="kg" />
-          <InfoCard title="BF" value="14.8" unit="%" />
-          <InfoCard title="LM" value="35.1" unit="kg" />
+          <View style={styles.infoCard}>
+            <Text style={styles.infoCardTitle}>Weight</Text>
+            <Text style={styles.infoCardValue}>{weight}</Text>
+            <Text style={styles.infoCardUnit}>kg</Text>
+          </View>
         </View>
 
         <View style={styles.graphContainer}>
-          <WeightGraph
-            data={data}
-            addWeightEntry={addWeightEntry}
-            weight={weight}
-            setWeight={setWeight}
-          />
           <Pressable
             onPress={() => setModalVisible(true)}
             style={styles.addButton}
@@ -103,9 +114,7 @@ function ProfileScreen({ route, navigation }) {
           animationType="slide"
           transparent={true}
           visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(false);
-          }}
+          onRequestClose={() => setModalVisible(false)}
         >
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
@@ -131,71 +140,11 @@ function ProfileScreen({ route, navigation }) {
                   style={[styles.modalButton, styles.addButtonModal]}
                   onPress={() => {
                     if (inputValue.trim() !== "") {
-                      addWeightEntry(inputValue);
-                      setInputValue("");
-                      setWeight(inputValue);
+                      saveWeight(inputValue);
                     }
                   }}
                 >
                   <Text style={styles.buttonText}>Add</Text>
-                </Pressable>
-              </View>
-            </View>
-          </View>
-        </Modal>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(false);
-          }}
-        >
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>User Settings</Text>
-              <TextInput
-                style={styles.modalInput}
-                placeholder="Username"
-                value={username}
-                onChangeText={(text) => setUsername(text)}
-              />
-              <TextInput
-                style={styles.modalInput}
-                placeholder="Full Name"
-                value={fullName}
-                onChangeText={(text) => setFullName(text)}
-              />
-              <TextInput
-                style={styles.modalInput}
-                placeholder="Height"
-                value={height}
-                onChangeText={(text) => setHeight(text)}
-              />
-              <TextInput
-                style={styles.modalInput}
-                placeholder="Weight"
-                keyboardType="numeric"
-                value={weight}
-                onChangeText={(text) => setWeight(text)}
-              />
-              <View style={styles.modalButtons}>
-                <Pressable
-                  style={[styles.modalButton, styles.cancelButton]}
-                  onPress={() => {
-                    setModalVisible(false);
-                  }}
-                >
-                  <Text style={styles.buttonText}>Cancel</Text>
-                </Pressable>
-                <Pressable
-                  style={[styles.modalButton, styles.addButtonModal]}
-                  onPress={() => {
-                    setModalVisible(false);
-                    // Optionally, save the updated settings
-                  }}
-                >
-                  <Text style={styles.buttonText}>Save</Text>
                 </Pressable>
               </View>
             </View>
@@ -209,6 +158,31 @@ function ProfileScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  infoCard: {
+    width: 200,
+    height: 220,
+    backgroundColor: "#F5F5F5",
+    borderRadius: 10,
+    padding: 20,
+    margin: 5,
+    justifyContent: "space-between",
+  },
+  infoCardTitle: {
+    fontSize: 15,
+    color: "#192126",
+    textAlign: "left",
+  },
+  infoCardValue: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "#192126",
+    textAlign: "center",
+  },
+  infoCardUnit: {
+    fontSize: 13,
+    color: "#192126",
+    textAlign: "left",
   },
   mainContainer: {
     margin: 25,

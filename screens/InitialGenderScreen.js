@@ -10,15 +10,22 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const AgeScreen = ({ navigation }) => {
-  const [age, setAge] = useState("");
+const GenderScreen = ({ navigation }) => {
   const [gender, setGender] = useState("male"); // Estado para armazenar o gênero selecionado
 
   const handleContinue = () => {
-    // Aqui você pode salvar a idade e o gênero em AsyncStorage ou no estado global, se necessário
-    // Navega para a próxima tela;
-    console.log("Avancar");
+    const saveGender = async () => {
+      try {
+        await AsyncStorage.setItem("@UserSettings_gender", gender);
+      } catch (error) {
+        console.error("Error saving gender into AsyncStorage:", error);
+      }
+    };
+
+    saveGender();
+    navigation.navigate("ConfirmationScreen");
   };
 
   return (
@@ -115,4 +122,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AgeScreen;
+export default GenderScreen;

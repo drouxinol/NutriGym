@@ -15,6 +15,7 @@ import HeightScreen from "./screens/InitialHeightScreen";
 import UsernameScreen from "./screens/InitialUsernameScreen";
 import AgeScreen from "./screens/InitialAgeScreen";
 import GenderScreen from "./screens/InitialGenderScreen";
+import ConfirmationScreen from "./screens/ConfirmationScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -102,6 +103,13 @@ export default function App() {
           <Stack.Screen
             name="GenderScreen"
             component={GenderScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="ConfirmationScreen"
+            component={ConfirmationScreen}
             options={{
               headerShown: false,
             }}

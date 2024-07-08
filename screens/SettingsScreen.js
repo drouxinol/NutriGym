@@ -13,18 +13,16 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import ProfileScreen from "./ProfileScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import HomeScreen from "./HomeScreen";
 
 function SettingsScreen({ navigation }) {
-  const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [age, setAge] = useState("");
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
 
-  const saveHandler = async (name, username, age, height, weight) => {
+  const saveHandler = async (username, age, height, weight) => {
     try {
-      // Salvando os dados individuais no AsyncStorage
-      await AsyncStorage.setItem("@UserSettings_name", name);
       await AsyncStorage.setItem("@UserSettings_username", username);
       await AsyncStorage.setItem("@UserSettings_age", age.toString()); // Converte age para string antes de salvar
       await AsyncStorage.setItem("@UserSettings_height", height.toString()); // Converte height para string antes de salvar
@@ -37,8 +35,8 @@ function SettingsScreen({ navigation }) {
   };
 
   function saveInfo() {
-    saveHandler(name, username, age, height, weight);
-    navigation.navigate(ProfileScreen);
+    saveHandler(username, age, height, weight);
+    navigation.navigate(HomeScreen);
   }
 
   return (
@@ -62,14 +60,6 @@ function SettingsScreen({ navigation }) {
           </View>
           <View style={styles.mainContainer}>
             <View style={styles.form}>
-              <Text style={styles.label}>Name</Text>
-              <TextInput
-                style={styles.input}
-                value={name}
-                onChangeText={setName}
-                placeholder="Enter your name"
-                placeholderTextColor="#aaa"
-              />
               <Text style={styles.label}>Username</Text>
               <TextInput
                 style={styles.input}
@@ -119,6 +109,7 @@ function SettingsScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: Platform.OS === "android" ? 75 : 15,
   },
   scrollContainer: {
     flexGrow: 1,
@@ -133,7 +124,6 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     margin: 25,
-    marginTop: Platform.OS === "android" ? 75 : 15,
     flex: 1,
   },
   headerTitle: {

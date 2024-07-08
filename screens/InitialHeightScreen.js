@@ -9,14 +9,21 @@ import {
   Pressable,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HeightScreen = ({ navigation }) => {
   const [height, setHeight] = useState("");
 
   const handleContinue = () => {
-    // Aqui você pode salvar a altura em AsyncStorage ou no estado global, se necessário
+    const saveHeight = async () => {
+      try {
+        await AsyncStorage.setItem("@UserSettings_height", height);
+      } catch (error) {
+        console.error("Error saving height into AsyncStorage:", error);
+      }
+    };
 
-    // Navega para a próxima tela
+    saveHeight();
     navigation.navigate("AgeScreen");
   };
 
