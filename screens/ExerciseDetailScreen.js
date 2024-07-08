@@ -3,125 +3,165 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
   Pressable,
   SafeAreaView,
-  Platform,
   FlatList,
-  KeyboardAvoidingView,
+  TextInput,
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
+import { Fontisto } from "@expo/vector-icons";
 
 const ExerciseDetailScreen = ({ route, navigation }) => {
   const { exercise } = route.params;
-  const [series, setSeries] = useState([{ load: "", reps: "" }]);
 
-  const handleAddSeries = () => {
-    setSeries([...series, { load: "", reps: "" }]);
-  };
+  const [sets, setSets] = useState([
+    { id: 1, reps: 10, kg: 70, checked: false },
+    { id: 2, reps: 10, kg: 70, checked: false },
+    { id: 3, reps: 10, kg: 70, checked: false },
+  ]);
 
-  const handleRemoveSeries = (index) => {
-    const newSeries = [...series];
-    newSeries.splice(index, 1);
-    setSeries(newSeries);
-  };
+  const [selectedTab, setSelectedTab] = useState("Description");
 
-  const handleLoadChange = (text, index) => {
-    const newSeries = [...series];
-    newSeries[index].load = text;
-    setSeries(newSeries);
-  };
-
-  const handleRepsChange = (text, index) => {
-    const newSeries = [...series];
-    newSeries[index].reps = text;
-    setSeries(newSeries);
-  };
-
-  const handleSave = () => {
-    console.log("Series:", series);
-    // Implementar a lógica para salvar os dados aqui (ex: enviar para API)
-  };
+  function renderSet({ item }) {
+    return (
+      <View style={styles.setRow}>
+        <TextInput keyboardType="number-pad" style={styles.setText}>
+          {item.id}
+        </TextInput>
+        <TextInput
+          keyboardType="number-pad"
+          style={[
+            styles.setText,
+            {
+              backgroundColor: "#384046",
+              borderRadius: 5,
+              width: 45,
+              height: 30,
+              textAlign: "center",
+            },
+          ]}
+        >
+          {item.reps}
+        </TextInput>
+        <TextInput
+          keyboardType="number-pad"
+          style={[
+            styles.setText,
+            {
+              backgroundColor: "#384046",
+              borderRadius: 5,
+              width: 45,
+              height: 30,
+              textAlign: "center",
+            },
+          ]}
+        >
+          {item.kg}
+        </TextInput>
+        <View style={styles.checkboxPlaceholder} />
+      </View>
+    );
+  }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={styles.container}>
         <StatusBar style="light" />
-        <View style={styles.mainContainer}>
-          <View style={styles.header}>
-            <Pressable
-              onPress={() => navigation.goBack()}
-              style={styles.backButton}
-            >
-              <Ionicons name="arrow-back" size={24} color="white" />
-            </Pressable>
-            <Text style={styles.headerTitle}>{exercise.name}</Text>
+        <View style={styles.header}>
+          <Pressable
+            onPress={() => navigation.goBack()}
+            style={styles.backButton}
+          >
+            <Ionicons name="arrow-back" size={24} color="white" />
+          </Pressable>
+          <Text style={styles.headerTitle}>Exercise</Text>
+          <Pressable
+            onPress={() => setModalVisible(true)}
+            style={styles.editButton}
+          >
+            <Fontisto name="save" size={24} color="white" />
+          </Pressable>
+        </View>
+        <View style={styles.contentContainer}>
+          <View style={styles.exerciseCard}>
+            <View style={styles.image} />
+            <Text style={styles.exerciseTitle}>{exercise.name}</Text>
+            <FlatList
+              data={sets}
+              renderItem={renderSet}
+              keyExtractor={(item) => item.id.toString()}
+              style={{ marginTop: 25 }}
+            />
           </View>
-          <View style={{ marginTop: 25 }}>
-            <View style={styles.imageContainer}>
-              <View style={styles.imagePlaceholder} />
-            </View>
-
-            <View style={styles.seriesContainer}>
-              <Text style={styles.seriesTitle}>Séries</Text>
-              <KeyboardAvoidingView behavior="position">
-                <FlatList
-                  data={series}
-                  renderItem={({ item, index }) => (
-                    <View style={styles.seriesItem}>
-                      <TextInput
-                        style={styles.seriesInput}
-                        placeholder="Carga"
-                        placeholderTextColor="#A5A5A5"
-                        onChangeText={(text) => handleLoadChange(text, index)}
-                        value={item.load}
-                      />
-                      <TextInput
-                        style={styles.seriesInput}
-                        placeholder="Repetições"
-                        placeholderTextColor="#A5A5A5"
-                        onChangeText={(text) => handleRepsChange(text, index)}
-                        value={item.reps}
-                      />
-                      <Pressable
-                        onPress={() => handleRemoveSeries(index)}
-                        style={styles.removeSeriesButton}
-                      >
-                        <AntDesign name="delete" size={24} color="white" />
-                      </Pressable>
-                    </View>
-                  )}
-                  keyExtractor={(item, index) => index.toString()}
-                />
-              </KeyboardAvoidingView>
-              <Pressable
-                onPress={handleAddSeries}
-                style={styles.addSeriesButton}
-              >
-                <AntDesign name="plus" size={24} color="white" />
-                <Text style={styles.addSeriesButtonText}>Adicionar Série</Text>
-              </Pressable>
-            </View>
+          <View style={styles.setButtons}>
+            <Pressable style={styles.setButton}>
+              <AntDesign
+                name="minus"
+                size={24}
+                color="white"
+                onPress={() => console.log("Minus set pressed")}
+              />
+            </Pressable>
+            <Text style={styles.setTextCenter}>Sets</Text>
+            <Pressable style={styles.setButton}>
+              <AntDesign
+                name="plus"
+                size={24}
+                color="white"
+                onPress={() => console.log("Plus set pressed")}
+              />
+            </Pressable>
+          </View>
+          <View style={styles.tabContainer}>
+            <Pressable
+              onPress={() => setSelectedTab("Description")}
+              style={[
+                styles.tabButton,
+                selectedTab === "Description" && styles.activeTab,
+              ]}
+            >
+              <Text style={styles.tabText}>Description</Text>
+            </Pressable>
+            <Pressable
+              onPress={() => setSelectedTab("Progress")}
+              style={[
+                styles.tabButton,
+                selectedTab === "Progress" && styles.activeTab,
+              ]}
+            >
+              <Text style={styles.tabText}>Progress</Text>
+            </Pressable>
+            <Pressable
+              onPress={() => setSelectedTab("Tutorial")}
+              style={[
+                styles.tabButton,
+                selectedTab === "Tutorial" && styles.activeTab,
+              ]}
+            >
+              <Text style={styles.tabText}>Tutorial</Text>
+            </Pressable>
+          </View>
+          <View style={styles.tabContent}>
+            {selectedTab === "Description" && (
+              <Text style={styles.tabContentText}>{exercise.instructions}</Text>
+            )}
+            {selectedTab === "Progress" && (
+              <Text style={styles.tabContentText}>Progress Content</Text>
+            )}
+            {selectedTab === "Tutorial" && (
+              <Text style={styles.tabContentText}>Tutorial Content</Text>
+            )}
           </View>
         </View>
-        <Pressable onPress={handleSave} style={styles.saveButton}>
-          <AntDesign name="save" size={24} color="white" />
-          <Text style={styles.buttonText}>Salvar</Text>
-        </Pressable>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    margin: 25,
-    marginTop: Platform.OS === "android" ? 75 : 15,
-  },
   container: {
     flex: 1,
     backgroundColor: "#192126",
@@ -129,7 +169,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
+    padding: 20,
   },
   backButton: {
     marginRight: 10,
@@ -138,75 +178,95 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "white",
+    textAlign: "center",
   },
-  imageContainer: {
-    alignItems: "center",
-    marginBottom: 20,
+  editButton: {
+    marginLeft: "auto",
   },
-  imagePlaceholder: {
-    width: 200,
-    height: 200,
-    backgroundColor: "#384046",
-    borderRadius: 10,
-  },
-  seriesContainer: {
+  contentContainer: {
+    flex: 1,
     paddingHorizontal: 20,
   },
-  seriesTitle: {
-    fontSize: 24,
+  exerciseCard: {
+    backgroundColor: "#2A2E35",
+    borderRadius: 10,
+    padding: 20,
+    alignItems: "center",
+  },
+  image: {
+    width: 100,
+    height: 100,
+    backgroundColor: "gray",
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  exerciseTitle: {
     color: "white",
+    fontSize: 18,
     fontWeight: "bold",
     marginBottom: 10,
   },
-  seriesItem: {
+  setRow: {
     flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 10,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#384046",
+    width: "100%",
   },
-  seriesInput: {
-    flex: 1,
+  setText: {
+    color: "white",
+    fontSize: 16,
+  },
+  checkboxPlaceholder: {
+    width: 24,
+    height: 24,
     backgroundColor: "#384046",
-    color: "white",
-    fontSize: 18,
-    padding: 12,
-    borderRadius: 10,
-    marginRight: 10,
+    borderRadius: 4,
   },
-  removeSeriesButton: {
+  setButtons: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 20,
+  },
+  setButton: {
+    backgroundColor: "#384046",
+    borderRadius: 10,
     padding: 10,
-    borderRadius: 10,
-    backgroundColor: "#FF6347",
+    marginHorizontal: 20,
   },
-  addSeriesButton: {
-    flexDirection: "row",
-    backgroundColor: "#4CAF50",
-    padding: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-  },
-  addSeriesButtonText: {
+  setTextCenter: {
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
-    marginLeft: 10,
   },
-  saveButton: {
+  tabContainer: {
     flexDirection: "row",
-    backgroundColor: "#4CAF50",
-    padding: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    margin: 20,
-    marginTop: "auto",
+    justifyContent: "space-around",
+    marginBottom: 20,
   },
-  buttonText: {
+  tabButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+  },
+  activeTab: {
+    backgroundColor: "#384046",
+  },
+  tabText: {
     color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-    marginLeft: 10,
+    fontSize: 16,
+  },
+  tabContent: {
+    backgroundColor: "#2A2E35",
+    borderRadius: 10,
+    padding: 20,
+  },
+  tabContentText: {
+    color: "white",
+    fontSize: 16,
   },
 });
 

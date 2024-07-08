@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ProfileScreen from "./ProfileScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function SettingsScreen({ navigation }) {
   const [name, setName] = useState("");
@@ -19,6 +20,26 @@ function SettingsScreen({ navigation }) {
   const [age, setAge] = useState("");
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
+
+  const saveHandler = async (name, username, age, height, weight) => {
+    try {
+      // Salvando os dados individuais no AsyncStorage
+      await AsyncStorage.setItem("@UserSettings_name", name);
+      await AsyncStorage.setItem("@UserSettings_username", username);
+      await AsyncStorage.setItem("@UserSettings_age", age.toString()); // Converte age para string antes de salvar
+      await AsyncStorage.setItem("@UserSettings_height", height.toString()); // Converte height para string antes de salvar
+      await AsyncStorage.setItem("@UserSettings_weight", weight.toString()); // Converte weight para string antes de salvar
+
+      console.log("Data saved successfully");
+    } catch (error) {
+      console.error("Error saving data:", error);
+    }
+  };
+
+  function saveInfo() {
+    saveHandler(name, username, age, height, weight);
+    navigation.navigate(ProfileScreen);
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -84,10 +105,7 @@ function SettingsScreen({ navigation }) {
                 placeholderTextColor="#aaa"
                 keyboardType="numeric"
               />
-              <Pressable
-                style={styles.saveButton}
-                onPress={() => navigation.navigate(ProfileScreen)}
-              >
+              <Pressable style={styles.saveButton} onPress={saveInfo}>
                 <Text style={styles.saveButtonText}>Save</Text>
               </Pressable>
             </View>

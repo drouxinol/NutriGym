@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -5,16 +6,54 @@ import {
   Pressable,
   Platform,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import LoadingScreen from "../screens/LoadingScreen";
 import HomeImageComponent from "../components/HomeImageComponent";
 import HomeHeader from "../components/HomeHeaderComponent";
+import UsernameScreen from "./InitialUsernameScreen";
 
 function HomeScreen({ navigation }) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [username, setUsername] = useState("");
+  const [showInitialInfo, setShowInitialInfo] = useState(false);
+
+  useEffect(() => {
+    const fetchUsername = async () => {
+      try {
+        const storedUsername = await AsyncStorage.getItem(
+          "@UserSettings_username"
+        );
+        if (storedUsername !== null) {
+          setUsername(storedUsername);
+        } else {
+          setShowInitialInfo(true); // Mostra a tela inicial se o nome de usuário não estiver armazenado
+        }
+      } catch (error) {
+        console.error("Error retrieving username from AsyncStorage:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchUsername();
+  }, []);
+
+  if (showInitialInfo) {
+    return <UsernameScreen navigation={navigation} />;
+  }
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   function handlePressNutrition() {
     navigation.navigate("NutritionScreen");
   }
+
   function handlePressWorkout() {
     navigation.navigate("WorkoutFirstScreen");
   }
+
   function handlePressProfileButton() {
     navigation.navigate("ProfileScreen");
   }
@@ -22,7 +61,10 @@ function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainContainer}>
-        <HomeHeader onPressUserButton={handlePressProfileButton} />
+        <HomeHeader
+          onPressUserButton={handlePressProfileButton}
+          name={username}
+        />
         <Pressable onPress={handlePressWorkout}>
           <View style={styles.imageContainerView}>
             <HomeImageComponent

@@ -10,23 +10,15 @@ import { StatusBar } from "expo-status-bar";
 import NutritionScreen from "./screens/NutritionScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import ExerciseDetailScreen from "./screens/ExerciseDetailScreen";
-import LoadingScreen from "./screens/LoadingScreen";
-import { useState, useEffect } from "react";
+import WeightScreen from "./screens/InitialWeightScreen";
+import HeightScreen from "./screens/InitialHeightScreen";
+import UsernameScreen from "./screens/InitialUsernameScreen";
+import AgeScreen from "./screens/InitialAgeScreen";
+import GenderScreen from "./screens/InitialGenderScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    // Simulando um carregamento assíncrono (por exemplo, carregamento de dados)
-    setTimeout(() => {
-      setIsLoading(false); // Marcando como carregado após 2 segundos (simulação)
-    }, 5000);
-  }, []);
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
-
   return (
     <>
       <StatusBar style="dark" />
@@ -75,6 +67,41 @@ export default function App() {
           <Stack.Screen
             name="ExerciseDetailScreen"
             component={ExerciseDetailScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="UsernameScreen"
+            component={UsernameScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="HeightScreen"
+            component={HeightScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="AgeScreen"
+            component={AgeScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="WeightScreen"
+            component={WeightScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="GenderScreen"
+            component={GenderScreen}
             options={{
               headerShown: false,
             }}
