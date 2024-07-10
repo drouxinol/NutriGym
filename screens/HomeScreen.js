@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -10,9 +10,12 @@ import {
 import LoadingScreen from "../screens/LoadingScreen";
 import HomeImageComponent from "../components/HomeImageComponent";
 import HomeHeader from "../components/HomeHeaderComponent";
+import { UserContext } from "../contexts/user";
 
 function HomeScreen({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
+
+  const userInfo = useContext(UserContext);
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -27,13 +30,16 @@ function HomeScreen({ navigation }) {
   }
 
   function handlePressProfileButton() {
-    navigation.navigate("UsernameScreen");
+    navigation.navigate("ProfileScreen");
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainContainer}>
-        <HomeHeader onPressUserButton={handlePressProfileButton} />
+        <HomeHeader
+          onPressUserButton={handlePressProfileButton}
+          username={userInfo.user.username}
+        />
         <Pressable onPress={handlePressWorkout}>
           <View style={styles.imageContainerView}>
             <HomeImageComponent

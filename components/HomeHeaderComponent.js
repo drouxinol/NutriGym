@@ -2,12 +2,12 @@ import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-function HomeHeader({ onPressUserButton }) {
+function HomeHeader({ onPressUserButton, username }) {
   return (
     <View style={styles.headingContainer}>
       <View>
         <Text style={styles.text}>Good Morning 🔥</Text>
-        <Text style={{ fontSize: 30 }}>Daniel</Text>
+        <Text style={{ fontSize: 30 }}>{username}</Text>
       </View>
       <View>
         <Pressable onPress={onPressUserButton}>

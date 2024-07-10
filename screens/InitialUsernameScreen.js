@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -8,11 +8,17 @@ import {
   Platform,
   Pressable,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from "@expo/vector-icons";
+import { UserContext } from "../contexts/user";
 
 const UsernameScreen = ({ navigation }) => {
-  const [username, setUsername] = useState("");
+  const [usernameInput, setUsernameInput] = useState("");
+  const { user, updateUser } = useContext(UserContext);
+
+  function handlePress(enteredText) {
+    updateUser("username", enteredText);
+    navigation.navigate("ConfirmationScreen");
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -24,7 +30,7 @@ const UsernameScreen = ({ navigation }) => {
           >
             <Ionicons name="arrow-back" size={24} color="black" />
           </Pressable>
-          <Text style={styles.headerTitle}>Home</Text>
+          <Text style={styles.headerTitle}>Settings</Text>
         </View>
         <View style={styles.content}>
           <Text style={styles.title}>Choose a username</Text>
@@ -32,12 +38,12 @@ const UsernameScreen = ({ navigation }) => {
             style={styles.input}
             placeholder="Enter your username"
             placeholderTextColor="#666"
-            onChangeText={(text) => setUsername(text)}
-            value={username}
+            onChangeText={(text) => setUsernameInput(text)}
+            value={usernameInput}
           />
           <Pressable
             style={styles.button}
-            onPress={() => console.log("Button Pressed")}
+            onPress={() => handlePress(usernameInput)}
           >
             <Text style={styles.buttonText}>Continue</Text>
           </Pressable>
