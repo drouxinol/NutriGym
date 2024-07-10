@@ -9,8 +9,6 @@ import {
   Pressable,
 } from "react-native";
 import ExerciseDificultyList from "../components/ExerciseDificultyList";
-import ExerciseClass from "../models/ExerciseClass";
-import WorkoutPlanClass from "../models/WorkoutPlanClass";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -53,7 +51,6 @@ function WorkoutFirstScreen({ navigation }) {
           </Pressable>
           <Text style={styles.headerTitle}>Exercises</Text>
         </View>
-
         <View style={styles.list}>
           <ExerciseDificultyList navigation={navigation} />
         </View>

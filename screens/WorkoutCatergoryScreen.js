@@ -5,7 +5,6 @@ import {
   View,
   Pressable,
   Platform,
-  FlatList,
   Text,
 } from "react-native";
 import ExerciseCategoryList from "../components/ExerciseCategoryList";
@@ -36,7 +35,7 @@ function WorkoutCategoryScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   mainContainer: {
     margin: 25,
-    marginTop: Platform.OS === "android" ? 75 : 35,
+    marginTop: Platform.OS === "android" ? 75 : 15,
     flex: 1,
   },
   container: {

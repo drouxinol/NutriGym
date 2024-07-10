@@ -14,20 +14,6 @@ import { Ionicons } from "@expo/vector-icons";
 const UsernameScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
 
-  const handleContinue = () => {
-    const saveUsername = async () => {
-      try {
-        await AsyncStorage.setItem("@UserSettings_username", username);
-      } catch (error) {
-        console.error("Error saving username into AsyncStorage:", error);
-      }
-    };
-
-    saveUsername();
-
-    navigation.navigate("ConfirmationScreen");
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainContainer}>
@@ -49,7 +35,10 @@ const UsernameScreen = ({ navigation }) => {
             onChangeText={(text) => setUsername(text)}
             value={username}
           />
-          <Pressable style={styles.button} onPress={handleContinue}>
+          <Pressable
+            style={styles.button}
+            onPress={() => console.log("Button Pressed")}
+          >
             <Text style={styles.buttonText}>Continue</Text>
           </Pressable>
         </View>
@@ -95,7 +84,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: "#007AFF",
+    backgroundColor: "black",
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 8,

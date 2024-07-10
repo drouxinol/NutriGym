@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 import HomeScreen from "./screens/HomeScreen";
 import WorkoutFirstScreen from "./screens/WorkOutFirstScreen";
 import WorkoutPlanDetail from "./screens/PlanDetailScreen";
@@ -71,9 +70,3 @@ export default function App() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  backButton: {
-    marginLeft: 10,
-  },
-});

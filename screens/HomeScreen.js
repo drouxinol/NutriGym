@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -7,46 +7,12 @@ import {
   Platform,
   Alert,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useFocusEffect } from "@react-navigation/native";
 import LoadingScreen from "../screens/LoadingScreen";
 import HomeImageComponent from "../components/HomeImageComponent";
 import HomeHeader from "../components/HomeHeaderComponent";
-import UsernameScreen from "./InitialUsernameScreen";
 
 function HomeScreen({ navigation }) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [username, setUsername] = useState("");
-  const [showInitialInfo, setShowInitialInfo] = useState(false);
-
-  const fetchUsername = useCallback(async () => {
-    try {
-      const storedUsername = await AsyncStorage.getItem(
-        "@UserSettings_username"
-      );
-      if (storedUsername !== null) {
-        setUsername(storedUsername);
-        setShowInitialInfo(false); // Nome de usuário encontrado, não mostrar tela inicial
-      } else {
-        setShowInitialInfo(true); // Mostrar a tela inicial se o nome de usuário não estiver armazenado
-      }
-    } catch (error) {
-      console.error("Error retrieving username from AsyncStorage:", error);
-      Alert.alert("Error", "Failed to retrieve username.");
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useFocusEffect(
-    useCallback(() => {
-      fetchUsername();
-    }, [fetchUsername])
-  );
-
-  if (showInitialInfo) {
-    return <UsernameScreen navigation={navigation} />;
-  }
+  const [isLoading, setIsLoading] = useState(false);
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -67,10 +33,7 @@ function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainContainer}>
-        <HomeHeader
-          onPressUserButton={handlePressProfileButton}
-          name={username}
-        />
+        <HomeHeader onPressUserButton={handlePressProfileButton} />
         <Pressable onPress={handlePressWorkout}>
           <View style={styles.imageContainerView}>
             <HomeImageComponent
