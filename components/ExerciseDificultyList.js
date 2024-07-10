@@ -6,8 +6,8 @@ import ExerciseDificultyData from "../data/ExercisesDificultyData";
 function ExerciseDificultyList({ navigation }) {
   //Create the list
 
-  function pressHandler() {
-    console.log("Button Pressed!");
+  function pressHandler(difficulty) {
+    navigation.navigate("WorkoutCategoryScreen", { difficulty });
   }
 
   function renderDificultyItem(itemData) {

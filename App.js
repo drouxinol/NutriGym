@@ -9,6 +9,7 @@ import { StatusBar } from "expo-status-bar";
 import ExerciseDetailScreen from "./screens/ExerciseDetailScreen";
 import ConfirmationScreen from "./screens/ConfirmationScreen";
 import UsernameScreen from "./screens/InitialUsernameScreen";
+import WorkoutCatergoryScreen from "./screens/WorkoutCatergoryScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -54,6 +55,13 @@ export default function App() {
           <Stack.Screen
             name="ConfirmationScreen"
             component={ConfirmationScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="WorkoutCategoryScreen"
+            component={WorkoutCatergoryScreen}
             options={{
               headerShown: false,
             }}

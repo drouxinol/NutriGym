@@ -37,34 +37,7 @@ function renderWorkoutPlanItem({ navigation, item }) {
 
 function WorkoutFirstScreen({ navigation }) {
   // Temporary variable
-  const workoutPlans = [
-    new WorkoutPlanClass("Plan A", [
-      new ExerciseClass(
-        "Agachamento",
-        "Exercício para pernas",
-        "Pernas",
-        4,
-        12
-      ),
-      new ExerciseClass("Supino", "Exercício para o peito", "Peito", 3, 10),
-    ]),
-    new WorkoutPlanClass("Plan B", [
-      new ExerciseClass(
-        "Levantamento Terra",
-        "Exercício para costas",
-        "Costas",
-        3,
-        8
-      ),
-      new ExerciseClass(
-        "Desenvolvimento",
-        "Exercício para ombros",
-        "Ombros",
-        3,
-        12
-      ),
-    ]),
-  ];
+  const workoutPlans = [];
 
   return (
     <SafeAreaView style={styles.container}>
@@ -82,7 +55,7 @@ function WorkoutFirstScreen({ navigation }) {
         </View>
 
         <View style={styles.list}>
-          <ExerciseDificultyList />
+          <ExerciseDificultyList navigation={navigation} />
         </View>
         <Text style={[styles.text]}>Plans</Text>
         <View style={styles.list}>

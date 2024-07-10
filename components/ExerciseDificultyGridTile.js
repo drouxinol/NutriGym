@@ -6,7 +6,7 @@ function ExerciseDificultyGridTile({ type, imgSource, onPress }) {
   // Create Each Tile
   return (
     <View style={styles.imageView}>
-      <Pressable onPress={onPress}>
+      <Pressable onPress={() => onPress(type)}>
         <Image source={imgSource} style={styles.mainImage} />
 
         <LinearGradient
