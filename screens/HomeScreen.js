@@ -41,7 +41,8 @@ function HomeScreen({ navigation }) {
     !user.age &&
     !user.gender &&
     !user.height &&
-    !user.weight
+    !user.weight &&
+    !user.plans
   ) {
     return <MultiStepFormScreen navigation={navigation} />;
   }

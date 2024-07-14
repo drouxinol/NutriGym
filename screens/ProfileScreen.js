@@ -13,14 +13,6 @@ import { UserContext } from "../contexts/user";
 function ProfileScreen({ navigation }) {
   const userInfo = useContext(UserContext);
 
-  const saveWeight = (weight) => {
-    userInfo.updateUser("weight", weight);
-  };
-
-  const saveHeight = (height) => {
-    userInfo.updateUser("height", height);
-  };
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainContainer}>
@@ -37,6 +29,8 @@ function ProfileScreen({ navigation }) {
           <View>
             <Text style={styles.headerNameText}>{userInfo.user.fullName}</Text>
             <View style={styles.row}>
+              <Text style={styles.headerSubText}>{userInfo.user.username}</Text>
+              <View style={styles.separator} />
               <Text style={styles.headerSubText}>
                 {userInfo.user.age} years
               </Text>
@@ -73,8 +67,6 @@ function ProfileScreen({ navigation }) {
             <Text style={styles.infoCardUnit}>kg/m²</Text>
           </View>
         </View>
-
-        {/* Graphs or additional content can be added here */}
       </View>
     </SafeAreaView>
   );

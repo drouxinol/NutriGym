@@ -8,6 +8,7 @@ export const UserContext = createContext({
   age: "",
   height: "",
   gender: "",
+  plans: [],
   updateUser: () => {},
 });
 
@@ -19,9 +20,10 @@ function UserProvider({ children }) {
     age: "",
     height: "",
     gender: "",
+    plans: [],
   });
 
-  const [loadingscreen, setloadingscreen] = useState(true);
+  const [loadingscreen, setLoadingscreen] = useState(true);
 
   function updateUser(updatedFields) {
     const updatedUser = {
@@ -47,7 +49,7 @@ function UserProvider({ children }) {
     } catch (e) {
       console.log("Error fetching the user info.", console.error(e));
     } finally {
-      setloadingscreen(false);
+      setLoadingscreen(false);
     }
   };
 

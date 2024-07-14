@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     color: "#192126", // Dark text for light background
   },
   saveButton: {
-    backgroundColor: "#007BFF",
+    backgroundColor: "#192126",
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 8,

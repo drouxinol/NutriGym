@@ -151,7 +151,6 @@ function MultiStepFormScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f0f0f0",
   },
   scrollContainer: {
     flexGrow: 1,
@@ -195,7 +194,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: "#007bff",
+    backgroundColor: "#192126",
     paddingVertical: 15,
     borderRadius: 8,
     marginTop: 10,
