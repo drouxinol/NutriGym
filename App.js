@@ -7,10 +7,13 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import ExerciseDetailScreen from "./screens/ExerciseDetailScreen";
 import ConfirmationScreen from "./screens/ConfirmationScreen";
-import UsernameScreen from "./screens/InitialUsernameScreen";
 import WorkoutCatergoryScreen from "./screens/WorkoutCatergoryScreen";
 import UserProvider from "./contexts/user";
 import ProfileScreen from "./screens/ProfileScreen";
+import MultiStepFormScreen from "./screens/InitialInfoScreen";
+import ExerciseDetailListScreen from "./screens/ExerciseDetailListScreen";
+import ExerciseGeneralScreen from "./screens/ExerciseGeneralScreen";
+import SettingsScreen from "./screens/SettingsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -40,10 +43,23 @@ export default function App() {
                 headerShown: false,
               }}
             />
-
+            <Stack.Screen
+              name="ExerciseGeneralScreen"
+              component={ExerciseGeneralScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
             <Stack.Screen
               name="WorkoutPlanDetailed"
               component={WorkoutPlanDetail}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="ExerciseDetailListScreen"
+              component={ExerciseDetailListScreen}
               options={{
                 headerShown: false,
               }}
@@ -56,8 +72,15 @@ export default function App() {
               }}
             />
             <Stack.Screen
-              name="UsernameScreen"
-              component={UsernameScreen}
+              name="MultiStepFormScreen"
+              component={MultiStepFormScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="SettingsScreen"
+              component={SettingsScreen}
               options={{
                 headerShown: false,
               }}

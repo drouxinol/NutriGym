@@ -26,7 +26,9 @@ function WorkoutCategoryScreen({ navigation, route }) {
           </Pressable>
           <Text style={styles.headerTitle}>{difficulty}</Text>
         </View>
-        <ExerciseCategoryList />
+        <View style={{ marginTop: 25 }}>
+          <ExerciseCategoryList difficulty={difficulty} />
+        </View>
       </View>
     </SafeAreaView>
   );

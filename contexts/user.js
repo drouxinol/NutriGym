@@ -1,4 +1,5 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const UserContext = createContext({
   fullName: "",
@@ -12,24 +13,69 @@ export const UserContext = createContext({
 
 function UserProvider({ children }) {
   const [user, setUser] = useState({
-    fullName: "Daniel Rouxinol",
-    username: "drouxinol",
-    weight: "74",
-    age: "23",
-    height: "169",
-    gender: "Male",
+    fullName: "",
+    username: "",
+    weight: "",
+    age: "",
+    height: "",
+    gender: "",
   });
 
-  function updateUser(key, value) {
-    setUser((prevValue) => ({ ...prevValue, [key]: value }));
+  const [loadingscreen, setloadingscreen] = useState(true);
+
+  function updateUser(updatedFields) {
+    const updatedUser = {
+      ...user,
+      ...updatedFields,
+    };
+
+    setUser(updatedUser);
+
+    storeUser(updatedUser); // Save updated user
   }
 
-  const value = {
-    user: user,
-    updateUser: updateUser,
+  const getUser = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@UserInfo");
+      if (value !== null) {
+        const userInfo = JSON.parse(value);
+        setUser(userInfo);
+        console.log("Found the user", userInfo);
+      } else {
+        console.log("Did not find the user");
+      }
+    } catch (e) {
+      console.log("Error fetching the user info.", console.error(e));
+    } finally {
+      setloadingscreen(false);
+    }
   };
 
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+  const storeUser = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("@UserInfo", jsonValue);
+      console.log("Saved the user", value);
+    } catch (e) {
+      console.log("Error saving the user info.", e.message);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const contextValue = {
+    user,
+    updateUser,
+    storeUser,
+    getUser,
+    loadingscreen,
+  };
+
+  return (
+    <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
+  );
 }
 
 export default UserProvider;

@@ -1,39 +1,37 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import {
   StyleSheet,
   View,
-  Platform,
   Text,
   SafeAreaView,
   Pressable,
-  Modal,
-  TextInput,
+  Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { UserContext } from "../contexts/user";
 
 function ProfileScreen({ navigation }) {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [inputValue, setInputValue] = useState("");
   const userInfo = useContext(UserContext);
 
   const saveWeight = (weight) => {
     userInfo.updateUser("weight", weight);
-    setModalVisible(false);
-    setInputValue("");
+  };
+
+  const saveHeight = (height) => {
+    userInfo.updateUser("height", height);
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainContainer}>
         <View style={styles.header}>
-          <Pressable
-            onPress={() => navigation.goBack()}
-            style={styles.backButton}
-          >
+          <Pressable onPress={() => navigation.goBack()}>
             <Ionicons name="arrow-back" size={24} color="#192126" />
           </Pressable>
-          <Text style={styles.headerTitle}>Profile</Text>
+          <View style={styles.headerTitleContainer}>
+            <Text style={styles.headerTitle}>Profile</Text>
+          </View>
+          <View style={styles.placeholder} />
         </View>
         <View style={styles.topHeader}>
           <View>
@@ -47,7 +45,7 @@ function ProfileScreen({ navigation }) {
             </View>
           </View>
           <Pressable
-            onPress={() => navigation.navigate("InitialUsernameScreen")}
+            onPress={() => navigation.navigate("SettingsScreen")}
             style={styles.settingsButton}
           >
             <Ionicons name="settings" size={24} color="#192126" />
@@ -61,6 +59,11 @@ function ProfileScreen({ navigation }) {
             <Text style={styles.infoCardUnit}>kg</Text>
           </View>
           <View style={styles.infoCard}>
+            <Text style={styles.infoCardTitle}>Height</Text>
+            <Text style={styles.infoCardValue}>{userInfo.user.height}</Text>
+            <Text style={styles.infoCardUnit}>cm</Text>
+          </View>
+          <View style={styles.infoCard}>
             <Text style={styles.infoCardTitle}>BMI</Text>
             <Text style={styles.infoCardValue}>
               {(
@@ -71,55 +74,7 @@ function ProfileScreen({ navigation }) {
           </View>
         </View>
 
-        <View style={styles.graphContainer}>
-          <Pressable
-            onPress={() => setModalVisible(true)}
-            style={styles.addButton}
-          >
-            <Text style={styles.addButtonText}>Add weight</Text>
-          </Pressable>
-        </View>
-
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => setModalVisible(false)}
-        >
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Add your current weight</Text>
-              <TextInput
-                style={styles.modalInput}
-                placeholder="Add your weight in kg"
-                keyboardType="numeric"
-                value={inputValue}
-                onChangeText={(text) => setInputValue(text)}
-              />
-              <View style={styles.modalButtons}>
-                <Pressable
-                  style={[styles.modalButton, styles.cancelButton]}
-                  onPress={() => {
-                    setInputValue("");
-                    setModalVisible(false);
-                  }}
-                >
-                  <Text style={styles.buttonText}>Cancel</Text>
-                </Pressable>
-                <Pressable
-                  style={[styles.modalButton, styles.addButtonModal]}
-                  onPress={() => {
-                    if (inputValue.trim() !== "") {
-                      saveWeight(inputValue);
-                    }
-                  }}
-                >
-                  <Text style={styles.buttonText}>Add</Text>
-                </Pressable>
-              </View>
-            </View>
-          </View>
-        </Modal>
+        {/* Graphs or additional content can be added here */}
       </View>
     </SafeAreaView>
   );
@@ -137,15 +92,20 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between", // Adjusted for centering
     marginBottom: 20,
   },
-  backButton: {
-    marginRight: 10,
+  headerTitleContainer: {
+    flex: 1,
+    alignItems: "center",
   },
   headerTitle: {
     fontSize: 20,
     fontWeight: "bold",
     color: "#192126",
+  },
+  placeholder: {
+    width: 24,
   },
   topHeader: {
     flexDirection: "row",
@@ -217,77 +177,6 @@ const styles = StyleSheet.create({
   graphContainer: {
     alignItems: "center",
     marginTop: 20,
-  },
-  addButtonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  addButton: {
-    marginTop: 20,
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderRadius: 10,
-    backgroundColor: "#007BFF",
-    elevation: 2,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modalContent: {
-    backgroundColor: "#FFFFFF",
-    padding: 20,
-    borderRadius: 10,
-    width: "80%",
-    alignItems: "center",
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 10,
-    color: "#192126",
-  },
-  modalInput: {
-    borderWidth: 1,
-    borderColor: "#CCCCCC",
-    borderRadius: 5,
-    width: "100%",
-    paddingHorizontal: 10,
-    marginBottom: 20,
-    height: 40,
-  },
-  modalButtons: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    width: "100%",
-  },
-  modalButton: {
-    flex: 1,
-    paddingVertical: 12,
-    marginHorizontal: 5,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  cancelButton: {
-    backgroundColor: "#E72929",
-  },
-  addButtonModal: {
-    backgroundColor: "#007BFF",
-  },
-  buttonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "bold",
-    textAlign: "center",
   },
 });
 

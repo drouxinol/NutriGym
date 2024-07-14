@@ -1,4 +1,4 @@
-const Exercises = [
+export const Exercises = [
   {
     name: "Triceps dip",
     type: "strength",
@@ -222,7 +222,7 @@ const Exercises = [
     equipment: "barbell",
     difficulty: "intermediate",
     instructions:
-      "The box squat allows you to squat to desired depth and develop explosive strength in the squat movement. Begin in a power rack with a box at the appropriate height behind you. Typically, you would aim for a box height that brings you to a parallel squat, but you can train higher or lower if desired. Begin by stepping under the bar and placing it across the back of the shoulders. Squeeze your shoulder blades together and rotate your elbows forward, attempting to bend the bar across your shoulders. Remove the bar from the rack, creating a tight arch in your lower back, and step back into position. Place your feet wider for more emphasis on the back, glutes, adductors, and hamstrings, or closer together for more quad development. Keep your head facing forward. With your back, shoulders, and core tight, push your knees and butt out and you begin your descent. Sit back with your hips until you are seated on the box. Ideally, your shins should be perpendicular to the ground. Pause when you reach the box, and relax the hip flexors. Never bounce off of a box. Keeping the weight on your heels and pushing your feet and knees out, drive upward off of the box as you lead the movement with your head. Continue upward, maintaining tightness head to toe.",
+      "The box squat allows you to squat to desired depth and develop explosive strength in the squat movement. Begin in a power rack with a box at the appropriate height behind you. Typically, you would aim for a box height that brings you to a parallel squat, but you can train higher or lower if desired. Begin by stepping under the bar and placing it across the back of the shoulders. Squeeze your shoulder blades together and rotate your elbows forward, attempting to bend the bar across your shoulders. Remove the bar from the rack, creating a tight arch in your lower back, and step back into position. Place your feet wider for more emphasis on the back, glutes, legs, and hamstrings, or closer together for more quad development. Keep your head facing forward. With your back, shoulders, and core tight, push your knees and butt out and you begin your descent. Sit back with your hips until you are seated on the box. Ideally, your shins should be perpendicular to the ground. Pause when you reach the box, and relax the hip flexors. Never bounce off of a box. Keeping the weight on your heels and pushing your feet and knees out, drive upward off of the box as you lead the movement with your head. Continue upward, maintaining tightness head to toe.",
   },
   {
     name: "Push-press",
@@ -258,7 +258,7 @@ const Exercises = [
     equipment: "None",
     difficulty: "intermediate",
     instructions:
-      "Begin in a power rack with a box at the appropriate height behind you. Set up the bands either on band pegs or attached to the top of the rack, ensuring they will be directly above the bar during the squat. Attach the other end to the bar. Begin by stepping under the bar and placing it across the back of the shoulders. Squeeze your shoulder blades together and rotate your elbows forward, attempting to bend the bar across your shoulders. Remove the bar from the rack, creating a tight arch in your lower back, and step back into position. Place your feet wider for more emphasis on the back, glutes, adductors, and hamstrings, or closer together for more quad development. Keep your head facing forward. With your back, shoulders, and core tight, push your knees and butt out and you begin your descent. Sit back with your hips until you are seated on the box. Ideally, your shins should be perpendicular to the ground. Pause when you reach the box, and relax the hip flexors. Never bounce off of a box. Keeping the weight on your heels and pushing your feet and knees out, drive upward off of the box as you lead the movement with your head. Continue upward, maintaining tightness head to toe. Use care to return the barbell to the rack.",
+      "Begin in a power rack with a box at the appropriate height behind you. Set up the bands either on band pegs or attached to the top of the rack, ensuring they will be directly above the bar during the squat. Attach the other end to the bar. Begin by stepping under the bar and placing it across the back of the shoulders. Squeeze your shoulder blades together and rotate your elbows forward, attempting to bend the bar across your shoulders. Remove the bar from the rack, creating a tight arch in your lower back, and step back into position. Place your feet wider for more emphasis on the back, glutes, legs, and hamstrings, or closer together for more quad development. Keep your head facing forward. With your back, shoulders, and core tight, push your knees and butt out and you begin your descent. Sit back with your hips until you are seated on the box. Ideally, your shins should be perpendicular to the ground. Pause when you reach the box, and relax the hip flexors. Never bounce off of a box. Keeping the weight on your heels and pushing your feet and knees out, drive upward off of the box as you lead the movement with your head. Continue upward, maintaining tightness head to toe. Use care to return the barbell to the rack.",
   },
   {
     name: "Jumping rope",
@@ -992,7 +992,7 @@ const Exercises = [
   {
     name: "Thigh adductor",
     type: "strength",
-    muscle: "adductors",
+    muscle: "legs",
     equipment: "machine",
     difficulty: "intermediate",
     instructions:
@@ -1001,7 +1001,7 @@ const Exercises = [
   {
     name: "Groiners",
     type: "stretching",
-    muscle: "adductors",
+    muscle: "legs",
     equipment: "body_only",
     difficulty: "beginner",
     instructions:
@@ -1010,7 +1010,7 @@ const Exercises = [
   {
     name: "Band Hip Adductions",
     type: "strength",
-    muscle: "adductors",
+    muscle: "legs",
     equipment: "bands",
     difficulty: "beginner",
     instructions:
@@ -1019,7 +1019,7 @@ const Exercises = [
   {
     name: "Side Leg Raises",
     type: "stretching",
-    muscle: "adductors",
+    muscle: "legs",
     equipment: "body_only",
     difficulty: "beginner",
     instructions:
@@ -1028,7 +1028,7 @@ const Exercises = [
   {
     name: "Lateral hop",
     type: "plyometrics",
-    muscle: "adductors",
+    muscle: "legs",
     equipment: "body_only",
     difficulty: "intermediate",
     instructions:
@@ -1037,7 +1037,7 @@ const Exercises = [
   {
     name: "Groin and Back Stretch",
     type: "stretching",
-    muscle: "adductors",
+    muscle: "legs",
     equipment: "none",
     difficulty: "beginner",
     instructions:
@@ -1046,7 +1046,7 @@ const Exercises = [
   {
     name: "Adductor SMR",
     type: "stretching",
-    muscle: "adductors",
+    muscle: "legs",
     equipment: "foam_roll",
     difficulty: "beginner",
     instructions:
@@ -1055,7 +1055,7 @@ const Exercises = [
   {
     name: "Side Lying Groin Stretch",
     type: "stretching",
-    muscle: "adductors",
+    muscle: "legs",
     equipment: "body_only",
     difficulty: "intermediate",
     instructions:
@@ -1064,7 +1064,7 @@ const Exercises = [
   {
     name: "Adductor/Groin",
     type: "stretching",
-    muscle: "adductors",
+    muscle: "legs",
     equipment: "none",
     difficulty: "beginner",
     instructions:
@@ -1073,7 +1073,7 @@ const Exercises = [
   {
     name: "Lying Bent Leg Groin",
     type: "stretching",
-    muscle: "adductors",
+    muscle: "legs",
     equipment: "other",
     difficulty: "beginner",
     instructions:
@@ -1082,7 +1082,7 @@ const Exercises = [
   {
     name: "Hip Circles (Prone)",
     type: "stretching",
-    muscle: "abductors",
+    muscle: "legs",
     equipment: "None",
     difficulty: "intermediate",
     instructions:
@@ -1091,7 +1091,7 @@ const Exercises = [
   {
     name: "Standing Hip Circles",
     type: "stretching",
-    muscle: "abductors",
+    muscle: "legs",
     equipment: "body_only",
     difficulty: "beginner",
     instructions:
@@ -1100,7 +1100,7 @@ const Exercises = [
   {
     name: "Clam",
     type: "strength",
-    muscle: "abductors",
+    muscle: "legs",
     equipment: "None",
     difficulty: "intermediate",
     instructions:
@@ -1109,7 +1109,7 @@ const Exercises = [
   {
     name: "Iliotibial band SMR",
     type: "stretching",
-    muscle: "abductors",
+    muscle: "legs",
     equipment: "foam_roll",
     difficulty: "intermediate",
     instructions:
@@ -1118,7 +1118,7 @@ const Exercises = [
   {
     name: "Thigh abductor",
     type: "strength",
-    muscle: "abductors",
+    muscle: "legs",
     equipment: "machine",
     difficulty: "intermediate",
     instructions:
@@ -1127,7 +1127,7 @@ const Exercises = [
   {
     name: "Fire Hydrant",
     type: "strength",
-    muscle: "abductors",
+    muscle: "legs",
     equipment: "body_only",
     difficulty: "beginner",
     instructions:
@@ -1136,7 +1136,7 @@ const Exercises = [
   {
     name: "Windmills",
     type: "stretching",
-    muscle: "abductors",
+    muscle: "legs",
     equipment: "body_only",
     difficulty: "intermediate",
     instructions:
@@ -1145,7 +1145,7 @@ const Exercises = [
   {
     name: "Monster Walk",
     type: "strength",
-    muscle: "abductors",
+    muscle: "legs",
     equipment: "body_only",
     difficulty: "intermediate",
     instructions:
@@ -1154,7 +1154,7 @@ const Exercises = [
   {
     name: "IT Band and Glute Stretch",
     type: "stretching",
-    muscle: "abductors",
+    muscle: "legs",
     equipment: "body_only",
     difficulty: "intermediate",
     instructions:
@@ -1163,7 +1163,7 @@ const Exercises = [
   {
     name: "Single-leg lying cross-over stretch",
     type: "stretching",
-    muscle: "abductors",
+    muscle: "legs",
     equipment: "body_only",
     difficulty: "beginner",
     instructions:

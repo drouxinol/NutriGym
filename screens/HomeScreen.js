@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -10,19 +10,18 @@ import {
 import LoadingScreen from "../screens/LoadingScreen";
 import HomeImageComponent from "../components/HomeImageComponent";
 import HomeHeader from "../components/HomeHeaderComponent";
+import MultiStepFormScreen from "./InitialInfoScreen";
 import { UserContext } from "../contexts/user";
 
 function HomeScreen({ navigation }) {
-  const [isLoading, setIsLoading] = useState(false);
+  const { user, loadingscreen, getUser } = useContext(UserContext);
 
-  const userInfo = useContext(UserContext);
-
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
+  useEffect(() => {
+    getUser();
+  }, []);
 
   function handlePressNutrition() {
-    Alert.alert("Brevemente Disponível!");
+    Alert.alert("Available Soon!");
   }
 
   function handlePressWorkout() {
@@ -33,12 +32,26 @@ function HomeScreen({ navigation }) {
     navigation.navigate("ProfileScreen");
   }
 
+  if (loadingscreen) {
+    return <LoadingScreen />;
+  }
+
+  if (
+    !user.username &&
+    !user.age &&
+    !user.gender &&
+    !user.height &&
+    !user.weight
+  ) {
+    return <MultiStepFormScreen navigation={navigation} />;
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.mainContainer}>
         <HomeHeader
           onPressUserButton={handlePressProfileButton}
-          username={userInfo.user.username}
+          fullName={user.fullName}
         />
         <Pressable onPress={handlePressWorkout}>
           <View style={styles.imageContainerView}>

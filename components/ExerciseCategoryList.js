@@ -2,10 +2,13 @@ import React from "react";
 import { FlatList } from "react-native";
 import ExerciseCategoryListTile from "./ExerciseCategoryListTile";
 import exercisesCategory from "../data/ExerciseCategoryData";
+import { useNavigation } from "@react-navigation/native";
 
-function ExerciseCategoryList() {
-  function pressHandler() {
-    console.log("Button Pressed!");
+function ExerciseCategoryList({ difficulty }) {
+  const navigation = useNavigation();
+
+  function pressHandler(category) {
+    navigation.navigate("ExerciseDetailListScreen", { category, difficulty });
   }
 
   function renderCategoryItem(itemData) {

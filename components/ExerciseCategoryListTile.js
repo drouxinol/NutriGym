@@ -6,7 +6,7 @@ function ExerciseCategoryListTile({ category, imgSource, onPress }) {
   // Create Each Tile
   return (
     <View style={styles.imageView}>
-      <Pressable onPress={onPress}>
+      <Pressable onPress={() => onPress(category)}>
         <Image source={imgSource} style={styles.mainImage} />
 
         <LinearGradient
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   mainImage: {
-    height: 250,
+    height: 200,
     width: "100%",
     borderRadius: 20,
   },
