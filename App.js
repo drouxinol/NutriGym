@@ -5,7 +5,6 @@ import WorkoutPlanDetail from "./screens/PlanDetailScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
-import ExerciseDetailScreen from "./screens/ExerciseDetailScreen";
 import ConfirmationScreen from "./screens/ConfirmationScreen";
 import WorkoutCatergoryScreen from "./screens/WorkoutCatergoryScreen";
 import UserProvider from "./contexts/user";
@@ -14,6 +13,7 @@ import MultiStepFormScreen from "./screens/InitialInfoScreen";
 import ExerciseDetailListScreen from "./screens/ExerciseDetailListScreen";
 import ExerciseGeneralScreen from "./screens/ExerciseGeneralScreen";
 import SettingsScreen from "./screens/SettingsScreen";
+import AllExercisesScreen from "./screens/AddExerciseToPlanScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -64,13 +64,7 @@ export default function App() {
                 headerShown: false,
               }}
             />
-            <Stack.Screen
-              name="ExerciseDetailScreen"
-              component={ExerciseDetailScreen}
-              options={{
-                headerShown: false,
-              }}
-            />
+
             <Stack.Screen
               name="MultiStepFormScreen"
               component={MultiStepFormScreen}
@@ -88,6 +82,13 @@ export default function App() {
             <Stack.Screen
               name="ConfirmationScreen"
               component={ConfirmationScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="AllExercisesScreen"
+              component={AllExercisesScreen}
               options={{
                 headerShown: false,
               }}

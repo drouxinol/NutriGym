@@ -30,12 +30,6 @@ const ExerciseDetailScreen = ({ route, navigation }) => {
             <Ionicons name="arrow-back" size={24} color="white" />
           </Pressable>
           <Text style={styles.headerTitle}>Exercise</Text>
-          <Pressable
-            onPress={() => console.log("Add to plan pressed")}
-            style={styles.addButton}
-          >
-            <MaterialIcons name="playlist-add" size={24} color="white" />
-          </Pressable>
         </View>
         <View style={styles.contentContainer}>
           <View style={styles.exerciseCard}>
@@ -85,9 +79,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 20,
-  },
-  backButton: {
-    marginRight: 10,
   },
   headerTitle: {
     fontSize: 20,

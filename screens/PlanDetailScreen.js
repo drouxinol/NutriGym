@@ -54,7 +54,11 @@ function WorkoutPlanDetail({ route, navigation }) {
           </View>
           <View style={styles.secundaryContainer}>
             <Text style={styles.exercisesText}>Exercises</Text>
-            <Pressable onPress={() => console.log("Button Pressed!")}>
+            <Pressable
+              onPress={() =>
+                navigation.navigate("AllExercisesScreen", { plan })
+              }
+            >
               <AntDesign name="plus" size={24} color="white" />
             </Pressable>
           </View>

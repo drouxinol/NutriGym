@@ -5,11 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 function ExerciseItem({ exercise }) {
   const navigation = useNavigation();
   return (
-    <Pressable
-      onPress={() =>
-        navigation.navigate("ExerciseDetailScreen", { exercise: exercise })
-      }
-    >
+    <Pressable onPress={() => console.log("Exercise Button pressed!")}>
       <View style={styles.container}>
         <View style={styles.imagePlaceholder} />
         <View style={styles.textContainer}>

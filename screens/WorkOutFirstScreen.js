@@ -25,6 +25,8 @@ function WorkoutFirstScreen({ navigation }) {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [planName, setPlanName] = useState("");
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(null);
 
   const openModal = () => {
     setModalVisible(true);
@@ -51,6 +53,24 @@ function WorkoutFirstScreen({ navigation }) {
     closeModal();
   };
 
+  const openDeleteModal = (plan) => {
+    setSelectedPlan(plan);
+    setDeleteModalVisible(true);
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteModalVisible(false);
+    setSelectedPlan(null);
+  };
+
+  const deletePlan = () => {
+    if (selectedPlan) {
+      const updatedPlans = workoutPlans.filter((plan) => plan !== selectedPlan);
+      updateUser({ plans: updatedPlans });
+      closeDeleteModal();
+    }
+  };
+
   function renderWorkoutPlanItem({ item }) {
     return (
       <Pressable
@@ -63,6 +83,7 @@ function WorkoutFirstScreen({ navigation }) {
         onPress={() =>
           navigation.navigate("WorkoutPlanDetailed", { plan: item })
         }
+        onLongPress={() => openDeleteModal(item)}
       >
         <View style={styles.planItemContent}>
           <MaterialCommunityIcons name="arm-flex" size={40} color="#4A4A4A" />
@@ -124,6 +145,28 @@ function WorkoutFirstScreen({ navigation }) {
             />
             <Pressable style={styles.saveButton} onPress={savePlan}>
               <Text style={styles.saveButtonText}>Save</Text>
+            </Pressable>
+          </Pressable>
+        </Pressable>
+      </Modal>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={deleteModalVisible}
+        onRequestClose={closeDeleteModal}
+      >
+        <Pressable style={styles.modalContainer} onPress={closeDeleteModal}>
+          <Pressable style={styles.modalContent} onPress={() => {}}>
+            <Text style={styles.modalTitle}>Delete Plan</Text>
+            <Text style={styles.modalText}>
+              Are you sure you want to delete this plan?
+            </Text>
+            <Pressable style={styles.deleteButton} onPress={deletePlan}>
+              <Text style={styles.deleteButtonText}>Delete</Text>
+            </Pressable>
+            <Pressable style={styles.cancelButton} onPress={closeDeleteModal}>
+              <Text style={styles.cancelButtonText}>Cancel</Text>
             </Pressable>
           </Pressable>
         </Pressable>
@@ -210,6 +253,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: "#4A4A4A",
   },
+  modalText: {
+    fontSize: 16,
+    color: "#4A4A4A",
+    marginBottom: 20,
+    textAlign: "center",
+  },
   input: {
     borderWidth: 1,
     borderColor: "#ccc",
@@ -228,6 +277,32 @@ const styles = StyleSheet.create({
   },
   saveButtonText: {
     color: "#FFFFFF",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  deleteButton: {
+    backgroundColor: "#FF0000",
+    paddingHorizontal: 30,
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 20,
+  },
+  deleteButtonText: {
+    color: "#FFFFFF",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  cancelButton: {
+    backgroundColor: "#CCCCCC",
+    paddingHorizontal: 30,
+    paddingVertical: 12,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  cancelButtonText: {
+    color: "#4A4A4A",
     fontSize: 18,
     fontWeight: "bold",
   },

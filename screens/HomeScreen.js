@@ -37,12 +37,11 @@ function HomeScreen({ navigation }) {
   }
 
   if (
-    !user.username &&
-    !user.age &&
-    !user.gender &&
-    !user.height &&
-    !user.weight &&
-    !user.plans
+    user.username === "" &&
+    user.age === "" &&
+    user.gender === "" &&
+    user.height === "" &&
+    user.weight === ""
   ) {
     return <MultiStepFormScreen navigation={navigation} />;
   }
